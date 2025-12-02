@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dty8ybmxxoscl"]
+
+[ext_resource type="Script" uid="uid://f6ovgo5w5wsv" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b702irs8i20bj" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cf7b65pboasmu" path="res://mob.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://bnqsnhx7umln0" path="res://ui.gd" id="4_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_h2yge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 763, -89, 0, 0, 0, 0, 1010, -110, 0, 0, 0, 0, 1209, -95, 0, 0, 0, 0, 1344, -21, 0, 0, 0, 0, 1430, 119, 0, 0, 0, 0, 1445, 231, 0, 0, 0, 0, 1424, 386, 0, 0, 0, 0, 1397, 474, 0, 0, 0, 0, 1335, 556, 0, 0, 0, 0, 1222, 619, 0, 0, 0, 0, 1066, 681, 0, 0, 0, 0, 867, 703, 0, 0, 0, 0, 689, 698, 0, 0, 0, 0, 511, 688, 0, 0, 0, 0, 401, 678, 0, 0, 0, 0, 269, 675, 0, 0, 0, 0, 152, 656, 0, 0, 0, 0, 76, 625, 0, 0, 0, 0, 19, 536, 0, 0, 0, 0, -9, 309, 0, 0, 0, 0, -22, 173, 0, 0, 0, 0, -16, 89, 0, 0, 0, 0, 35, 16, 0, 0, 0, 0, 92, -16, 0, 0, 0, 0, 184, -37, 0, 0, 0, 0, 362, -86, 0, 0, 0, 0, 553, -92, 0, 0, 0, 0, 723, -98, 0, 0, 0, 0, 744, -92)
+}
+point_count = 29
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("3_h2yge")
+
+[node name="Player" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(238, 451)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="Mob" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(1025, -21)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_h2yge")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(763, -89)
+rotation = -0.08481627
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.8
+
+[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_1bvp3")
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 81.0
+offset_bottom = 43.0
+text = "Score: 0"
+
+[node name="MessageLabel" type="Label" parent="UI"]
+visible = false
+offset_left = 500.0
+offset_top = 300.0
+offset_right = 587.0
+offset_bottom = 323.0
+text = "Game Over"
+
+[node name="RestartButton" type="Button" parent="UI"]
+visible = false
+offset_left = 500.0
+offset_top = 400.0
+offset_right = 565.0
+offset_bottom = 431.0
+text = "Restart"
